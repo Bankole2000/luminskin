@@ -7,6 +7,9 @@ export default new Vuex.Store({
   state: {
     cart: {
       isOpen: false, 
+    }, 
+    toast: {
+      
     }
   },
   mutations: {

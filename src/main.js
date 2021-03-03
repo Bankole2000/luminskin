@@ -4,6 +4,7 @@ import vuetify from './plugins/vuetify';
 import store from './store';
 import VueApollo from 'vue-apollo';
 import ApolloClient from 'apollo-boost';
+import router from './router'
 
 Vue.use(VueApollo)
 
@@ -22,5 +23,6 @@ new Vue({
   vuetify,
   store,
   apolloProvider,
+  router,
   render: h => h(App)
 }).$mount('#app')
