@@ -111,6 +111,16 @@ export default {
         }
       }
     `,
+    currencies: gql `
+    query{
+  __type(name: "Currency"){
+    name
+    enumValues {
+      name
+    }
+  }
+}
+    `
   },
   methods: {
     addToCart(item){
@@ -121,6 +131,7 @@ export default {
     setTimeout(() => {
       this.hasData = true;
       console.log({ products: this.products });
+      console.log({ currencies: this.currencies });
     }, 1000);
   },
 };

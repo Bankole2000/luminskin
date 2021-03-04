@@ -1,14 +1,6 @@
 <template>
   <div max-width="100vw">
-      <!-- <v-system-bar app>
-      <v-spacer></v-spacer>
-
-      <v-icon>mdi-square</v-icon>
-
-      <v-icon>mdi-circle</v-icon>
-
-      <v-icon>mdi-triangle</v-icon>
-    </v-system-bar> -->
+      
 
       <v-navigation-drawer
       color="#f2f2ef"
@@ -32,6 +24,31 @@
          </v-card-title>
          <div class="px-6">
              <v-select dense :items="items" hide-details  label="Currency" outlined style="border-radius: 0px; border-color: transparent; background-color: white;" :style="{'width': $vuetify.breakpoint.mdAndUp ? '25%': '50%'}"></v-select>
+         </div>
+         <div class="px-6">
+           <v-row>
+             <v-col cols="12">
+               <v-card tile elevation="0">
+                 <v-card-title>
+                   <span class="headline">Product Name</span>
+                   <v-spacer></v-spacer>
+                   <v-btn small icon>
+                     <v-icon>mdi-cancel</v-icon>
+                   </v-btn>
+                 </v-card-title>
+                 <v-card-text style="display:flex; justify-content: space-between;">
+                   <span>Price NGN1000</span>
+                   <v-img max-width="100" contain src="https://cdn.vuetifyjs.com/images/cards/cooking.png"/>
+                 </v-card-text>
+                 <v-card-actions>
+                   <v-btn outlined tile>-</v-btn>
+                   <v-btn outlined tile disabled>1</v-btn>
+                   <v-btn outlined tile>+</v-btn>
+
+                 </v-card-actions>
+               </v-card>
+             </v-col>
+           </v-row>
          </div>
      
     </v-navigation-drawer>
@@ -65,7 +82,6 @@
       </v-btn>
        </v-badge>
     </v-app-bar>
-    
   </div>
 </template>
 
