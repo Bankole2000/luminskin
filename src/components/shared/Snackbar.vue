@@ -1,12 +1,12 @@
 <template>
   <v-snackbar
     v-model="toast.show"
-    :color="!$vuetify.theme.dark ? '#171717' : '#f5f5f5'"
     :top="$vuetify.breakpoint.smAndDown"
     :bottom="!$vuetify.breakpoint.smAndDown"
     :right="!$vuetify.breakpoint.smAndDown"
     :timeout="toast.timeout"
   >
+    <!-- :color="!$vuetify.theme.dark ? '#171717' : '#f5f5f5'" -->
     <p
       v-html="toast.message"
       class="mb-0"
@@ -36,9 +36,9 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters(["toast"])
+    ...mapGetters(["toast"]),
   },
-  methods: {}
+  methods: {},
 };
 </script>
 

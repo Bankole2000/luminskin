@@ -25,7 +25,7 @@
         </v-row>
       </v-container>
     </div>
-    <div class="product-list">
+    <div class="product-list" style="background-color: #e2e6e3;">
       <v-container>
         <v-row v-if="!hasData">
           <v-col v-for="n in 6" cols="12" md="4" sm="6" :key="n">
@@ -43,18 +43,25 @@
           <v-col
             v-for="(product, i) in products"
             :key="i"
-            class="py-12 px-8 d-flex align-stretch"
+            class="d-flex align-stretch"
+            :class="$vuetify.breakpoint.mdAndUp ? 'py-12 px-8' : 'py-6 px-0'"
             cols="12"
             md="4"
             sm="6"
           >
             <v-card
               elevation="0"
-              class="mx-auto align-stretch"
+              class="mx-auto align-stretch transparent"
               max-width="344"
               style="text-align: center;"
             >
-              <v-img :src="product.image_url" height="200px" contain></v-img>
+              <v-img
+                :src="product.image_url"
+                class="mx-auto"
+                width="200px"
+                height="200px"
+                contain
+              ></v-img>
 
               <v-card-title style="justify-content: center; font-size: 1.1rem;">
                 {{ product.title }}
@@ -89,6 +96,7 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 import gql from "graphql-tag";
+import { mapActions } from "vuex";
 export default {
   name: "Home",
   components: {
@@ -111,27 +119,39 @@ export default {
         }
       }
     `,
-    currencies: gql `
-    query{
-  __type(name: "Currency"){
-    name
-    enumValues {
-      name
-    }
-  }
-}
-    `
+    __type: gql`
+      query {
+        __type(name: "Currency") {
+          name
+          enumValues {
+            name
+          }
+        }
+      }
+    `,
   },
   methods: {
-    addToCart(item){
-      console.log(item)
+    ...mapActions([
+      "showToast",
+      "showCart",
+      "addProductToCart",
+      "removeFromCart",
+    ]),
+    addToCart(item) {
+      this.addProductToCart({ item }).then((data) => {
+        const { success, message } = data;
+        this.showToast({ sclass: `${success ? "success" : "error"}`, message });
+        if (success) {
+          this.showCart(true);
+        }
+      });
     },
   },
   mounted() {
     setTimeout(() => {
       this.hasData = true;
       console.log({ products: this.products });
-      console.log({ currencies: this.currencies });
+      console.log({ currencies: this.__type });
     }, 1000);
   },
 };

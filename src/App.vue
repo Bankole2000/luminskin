@@ -1,27 +1,30 @@
 <template>
   <v-app>
     <Navbar />
-    
+
     <v-main>
       <transition name="router-anim">
         <router-view></router-view>
       </transition>
     </v-main>
+    <Snackbar />
   </v-app>
 </template>
 <script>
 import Navbar from "./components/shared/NavBar";
+import Snackbar from "./components/shared/Snackbar";
 export default {
   components: {
-    Navbar
-  }
-}
+    Navbar,
+    Snackbar,
+  },
+};
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Oranienbaum&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oranienbaum&display=swap");
 .hero-title {
-  font-family: 'Oranienbaum', serif !important;
+  font-family: "Oranienbaum", serif !important;
   font-size: 3.5rem;
 }
 
@@ -29,7 +32,7 @@ export default {
   border-radius: 0px !important;
 }
 
-// Smooth router animation 
+// Smooth router animation
 .router-anim-enter-active {
   animation: coming 0.5s;
   animation-delay: 0.3s;
