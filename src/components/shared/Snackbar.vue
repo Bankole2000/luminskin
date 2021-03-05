@@ -3,7 +3,7 @@
     v-model="toast.show"
     :top="$vuetify.breakpoint.smAndDown"
     :bottom="!$vuetify.breakpoint.smAndDown"
-    :right="!$vuetify.breakpoint.smAndDown"
+    :left="!$vuetify.breakpoint.smAndDown"
     :timeout="toast.timeout"
   >
     <!-- :color="!$vuetify.theme.dark ? '#171717' : '#f5f5f5'" -->

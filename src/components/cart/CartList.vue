@@ -100,7 +100,6 @@ export default {
     },
     changeCurrency(e) {
       this.setSelectedCurrency(e);
-      console.log({ e });
     },
     formatAsMoney(number) {
       return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");

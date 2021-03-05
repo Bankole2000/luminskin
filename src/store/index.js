@@ -40,7 +40,6 @@ export default new Vuex.Store({
     addProductToCart({ cart }, product) {
       cart.itemIds[product.id] = product;
       cart.items.push({ ...product, qty: 1, cost: product.price });
-      console.log({ cart: cart, product });
     },
     removeProductFromCart({ cart }, product) {
       if (cart.itemIds[product.id]) {
@@ -54,7 +53,7 @@ export default new Vuex.Store({
         if (product.id == item.id) {
           item.qty += 1;
           item.cost = item.price * item.qty;
-          console.log({ item });
+
           return;
         }
       });
@@ -65,7 +64,7 @@ export default new Vuex.Store({
           if (item.qty > 1) {
             item.qty -= 1;
             item.cost = item.price * item.qty;
-            console.log({ item });
+
             return;
           } else {
             if (cart.itemIds[product.id]) {
@@ -83,7 +82,6 @@ export default new Vuex.Store({
       state.selectedCurrency = payload;
     },
     updateProductsInCart(state, { productIds, products }) {
-      console.log({ state, productIds, products });
       if (state.cart.items.length > 0) {
         productIds.forEach((productId, index) => {
           if (state.cart.itemIds[productId]) {
@@ -150,7 +148,6 @@ export default new Vuex.Store({
       commit("setSelectedCurrency", payload);
     },
     updateProductsInCart({ commit }, payload) {
-      console.log({ commit, payload });
       let productIds;
       if (payload.length > 0) {
         productIds = payload.map((product) => product.id);
