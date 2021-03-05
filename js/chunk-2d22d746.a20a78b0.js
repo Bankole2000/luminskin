@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d22d746"],{f820:function(e,t,a){"use strict";a.r(t);var n=function(){var e=this,t=e.$createElement,a=e._self._c||t;return a("div",{staticClass:"about"},[a("PageTitle",{attrs:{title:"Developed By",subtitle:"Bankole Esan (aka <a href='https://bankole2000.github.io/webpieces' target='_blank'>@CodingInNeon</a>)"}})],1)},l=[],s=a("6188"),i={components:{PageTitle:s["a"]}},o=i,u=a("2877"),c=Object(u["a"])(o,n,l,!1,null,null,null);t["default"]=c.exports}}]);
+//# sourceMappingURL=chunk-2d22d746.a20a78b0.js.map
