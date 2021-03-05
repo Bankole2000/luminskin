@@ -15,7 +15,9 @@
       <div class="px-6">
         <v-select
           dense
-          :items="['USD', 'NGN']"
+          v-model="currency"
+          @change="changeCurrency($event)"
+          :items="currencies"
           hide-details
           label="Currency"
           outlined
@@ -41,21 +43,39 @@
       <v-divider class="mt-6"></v-divider>
       <v-card-title style="display: flex; justify-content: space-between">
         <span class="headline">SubTotal</span>
-        <span class="font-weight-black">NGN {{ cartTotal }}</span>
+        <span class="font-weight-black"
+          >{{ selectedCurrency }} {{ formatAsMoney(cartTotal) }}</span
+        >
       </v-card-title>
     </div>
   </div>
 </template>
 
 <script>
+import gql from "graphql-tag";
+
 import CartItem from "./CartItem";
 import { mapGetters, mapActions } from "vuex";
 export default {
+  data() {
+    return {
+      currency: "USD",
+    };
+  },
   components: {
     CartItem,
   },
+  apollo: {
+    currencies: {
+      query: gql`
+        query {
+          currencies: currency
+        }
+      `,
+    },
+  },
   computed: {
-    ...mapGetters(["cart", "cartTotal"]),
+    ...mapGetters(["cart", "cartTotal", "selectedCurrency"]),
     itemsInCart() {
       return this.cart.items.slice().reverse();
     },
@@ -67,6 +87,7 @@ export default {
       "removeProductFromCart",
       "increaseProductInCart",
       "decreaseProductInCart",
+      "setSelectedCurrency",
     ]),
     removeFromCart(item) {
       this.removeProductFromCart({ item });
@@ -76,6 +97,13 @@ export default {
     },
     decrease(item) {
       this.decreaseProductInCart({ item });
+    },
+    changeCurrency(e) {
+      this.setSelectedCurrency(e);
+      console.log({ e });
+    },
+    formatAsMoney(number) {
+      return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
     },
   },
 };

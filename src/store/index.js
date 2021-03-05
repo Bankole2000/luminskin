@@ -10,6 +10,8 @@ export default new Vuex.Store({
       items: [],
       itemIds: {},
     },
+
+    selectedCurrency: "USD",
     toast: {
       sclass: "",
       message: "",
@@ -77,6 +79,27 @@ export default new Vuex.Store({
         }
       });
     },
+    setSelectedCurrency(state, payload) {
+      state.selectedCurrency = payload;
+    },
+    updateProductsInCart(state, { productIds, products }) {
+      console.log({ state, productIds, products });
+      if (state.cart.items.length > 0) {
+        productIds.forEach((productId, index) => {
+          if (state.cart.itemIds[productId]) {
+            state.cart.itemIds[productId] = products[index];
+          }
+        });
+        state.cart.items.forEach((item, index) => {
+          if (state.cart.itemIds[item.id]) {
+            const { price } = state.cart.itemIds[item.id];
+            const { qty } = state.cart.items[index];
+            state.cart.items[index]["price"] = price;
+            state.cart.items[index]["cost"] = price * qty;
+          }
+        });
+      }
+    },
   },
   actions: {
     showToast({ commit }, { sclass, message, timeout = 2000 }) {
@@ -123,6 +146,17 @@ export default new Vuex.Store({
       const { item: product } = payload;
       commit("decreaseProductInCart", product);
     },
+    setSelectedCurrency({ commit }, payload) {
+      commit("setSelectedCurrency", payload);
+    },
+    updateProductsInCart({ commit }, payload) {
+      console.log({ commit, payload });
+      let productIds;
+      if (payload.length > 0) {
+        productIds = payload.map((product) => product.id);
+        commit("updateProductsInCart", { productIds, products: payload });
+      }
+    },
   },
   getters: {
     toast(state) {
@@ -135,6 +169,10 @@ export default new Vuex.Store({
       return state.cart.items.reduce((acc, item) => {
         return (acc += item.cost);
       }, 0);
+    },
+
+    selectedCurrency(state) {
+      return state.selectedCurrency;
     },
   },
   modules: {},
